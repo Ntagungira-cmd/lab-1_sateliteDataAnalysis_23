@@ -1,8 +1,13 @@
 #!/bin/bash
+
 # Select a country for extraction
 COUNTRY="Uganda"
 echo "Extracting data for $COUNTRY sorted by humidity..."
 grep "$COUNTRY" raw_data/satelite_temperature_data.csv | sort -t, -k4 -nr > analyzed_data/humidity_data_${COUNTRY}.csv
 echo "Saved humidity data for $COUNTRY to 'analyzed_data/humidity_data_${COUNTRY}.csv'."
+
+echo "Extracting the top 10 highest temperatures..."
+cut -d, -f1,2,3,4 raw_data/satelite_temperature_data.csv | sort -t, -k3 -nr | head -10 > analyzed_data/highest_temp.csv
+echo "Saved top 10 highest temperatures to 'analyzed_data/highest_temp.csv'."
 
 echo "Analysis completed successfully."
